@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Applicationex1</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Recommend</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_mine">Setting</string>
+</resources>
