@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
 //        val navView: BottomNavigationView = binding.navView
 
-        navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 //        val appBarConfiguration = AppBarConfiguration(
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     private fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-//
+    //
 //    private fun setupSmoothBottomMenu() {
 //        val popupMenu = PopupMenu(this, null)
 //        popupMenu.inflate(R.menu.bottom_nav_menu)

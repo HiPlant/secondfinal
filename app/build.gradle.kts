@@ -7,6 +7,7 @@ android {
     namespace = "com.example.myapplicationex1"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.example.myapplicationex1"
         minSdk = 34
@@ -52,8 +53,18 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    implementation("com.airbnb.android:lottie:6.2.0")
+
+    implementation("com.tbuonomo:dotsindicator:5.0") // viewpager indicator
     //app label build.gradle
     dependencies {
         implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
     }
+
+
 }
+
+//repositories {// viewpager indicator
+//    google()
+//    mavenCentral()
+//}
