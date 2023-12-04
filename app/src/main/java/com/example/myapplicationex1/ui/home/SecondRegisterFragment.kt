@@ -1,11 +1,21 @@
 package com.example.myapplicationex1.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import androidx.viewpager2.widget.ViewPager2
+import com.example.myapplicationex1.InputData
 import com.example.myapplicationex1.R
+import com.example.myapplicationex1.databinding.FragmentFirstRegisterBinding
+import com.example.myapplicationex1.databinding.FragmentSecondRegisterBinding
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,7 +31,7 @@ class SecondRegisterFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private lateinit var binding: FragmentSecondRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +45,30 @@ class SecondRegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second_register, container, false)
+        binding = FragmentSecondRegisterBinding.inflate(inflater, container, false)
+        binding.SecondToThird.setOnClickListener{
+            var vp = parentFragment?.activity?.findViewById<ViewPager2>(R.id.vpRegister)
+            var current = vp?.currentItem
+            setFragmentResultListener("FirstToSecond") { key, bundle ->
+                val result = bundle.getString("FirstToSecondItem")
+                val info1 = Json.decodeFromString<InputData>(result!!)
+                var info2 = info1.copy(sun = binding.Sun.text.toString())
+                setFragmentResult("SecondToThird", bundleOf("SecondToThirdItem" to Json.encodeToString(info2)))
+                Log.i("vp", "$vp$current$info1$info2")
+            }
+            if(current == 1) {
+                vp?.setCurrentItem(current+1, true)
+            }
+        }
+        binding.SecondToFirst.setOnClickListener{
+            var vp = parentFragment?.activity?.findViewById<ViewPager2>(R.id.vpRegister)
+            var current = vp?.currentItem
+
+            if(current == 1) {
+                vp?.setCurrentItem(current-1, true)
+            }
+        }
+        return binding.root
     }
 
     companion object {

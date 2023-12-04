@@ -3,12 +3,17 @@ package com.example.myapplicationex1.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import com.example.myapplicationex1.InputData
 import com.example.myapplicationex1.R
+import com.example.myapplicationex1.TodayPlantItem
+import kotlinx.serialization.json.Json
 import me.ibrahimsn.lib.SmoothBottomBar
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,7 +44,18 @@ class FinishRegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        setFragmentResultListener("ThirdToFinish"){key, bundle ->
+            val result = bundle.getString("ThirdToFinishItem")
+            val inputData = Json.decodeFromString<InputData>(result!!)
+            Log.i("vp","${inputData}")
+        }
+        setFragmentResultListener("ToFinish"){key, bundle ->
+            val result = bundle.getString("ToFinishItem")
+            val plantData = Json.decodeFromString<TodayPlantItem>(result!!)
+            Log.i("vp", "${plantData}")
+        }
         Handler(Looper.getMainLooper()).postDelayed({
+
             findNavController().navigate(R.id.action_finishRegisterFragment_to_navigation_home)
             val smoothBottomBar = requireActivity().findViewById<SmoothBottomBar>(R.id.navview)
             smoothBottomBar.visibility = View.VISIBLE// 실행 할 코드

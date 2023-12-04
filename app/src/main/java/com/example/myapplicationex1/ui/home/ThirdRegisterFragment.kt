@@ -1,14 +1,22 @@
 package com.example.myapplicationex1.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.example.myapplicationex1.InputData
 import com.example.myapplicationex1.R
 import com.example.myapplicationex1.databinding.FragmentHomeBinding
 import com.example.myapplicationex1.databinding.FragmentThirdRegisterBinding
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +49,22 @@ class ThirdRegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentThirdRegisterBinding.inflate(inflater, container, false)
         binding.finishRegister.setOnClickListener{
+            setFragmentResultListener("SecondToThird"){key, bundle ->
+                val result = bundle.getString("SecondToThirdItem")
+                val info2 = Json.decodeFromString<InputData>(result!!)
+                val info3 = info2.copy(temperature = binding.Temp.text.toString())
+                setFragmentResult("ThirdToFinish", bundleOf("ThirdToFinishItem" to Json.encodeToString(info3)))
+                Log.i("vp","${info2}${info3}")
+            }
             findNavController().navigate(R.id.action_onBoardingFragment_to_finishRegisterFragment)
+        }
+        binding.ThirdToSecond.setOnClickListener{
+            var vp = parentFragment?.activity?.findViewById<ViewPager2>(R.id.vpRegister)
+            var current = vp?.currentItem
+            Log.i("vp","$vp$current")
+            if(current == 2) {
+                vp?.setCurrentItem(current-1, true)
+            }
         }
         return binding.root
     }

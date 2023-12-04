@@ -1,13 +1,20 @@
 package com.example.myapplicationex1.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.viewpager2.widget.ViewPager2
+import com.example.myapplicationex1.InputData
 import com.example.myapplicationex1.R
 import com.example.myapplicationex1.databinding.FragmentFirstRegisterBinding
 import com.example.myapplicationex1.databinding.FragmentOnBoardingBinding
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +31,7 @@ class FirstRegisterFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var binding: FragmentFirstRegisterBinding
+    private lateinit var bindingParent:FragmentOnBoardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +47,22 @@ class FirstRegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFirstRegisterBinding.inflate(inflater, container, false)
+
+        val inputData = InputData()
+
+        binding.FirstToSecond.setOnClickListener{
+            var vp = parentFragment?.activity?.findViewById<ViewPager2>(R.id.vpRegister)
+            var current = vp?.currentItem
+
+            inputData.nickName = binding.NickName.text.toString()
+            inputData.lastWater = binding.Water.text.toString()
+            setFragmentResult("FirstToSecond",bundleOf("FirstToSecondItem" to Json.encodeToString(inputData) ))
+
+            Log.i("vp","$vp$current$inputData")
+            if(current == 0) {
+                vp?.setCurrentItem(current+1, true)
+            }
+        }
         return binding.root
     }
     companion object {

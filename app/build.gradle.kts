@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 android {
@@ -41,6 +43,13 @@ android {
 
 dependencies {
 
+    implementation("androidx.room:room-runtime:2.5.0")
+    annotationProcessor("androidx.room:room-compiler:2.5.0")
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:2.5.0")
+    implementation("androidx.room:room-ktx:2.4.3")
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -60,10 +69,9 @@ dependencies {
     dependencies {
         implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
     }
-
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0") // kotlinx s
 
 }
-
 //repositories {// viewpager indicator
 //    google()
 //    mavenCentral()

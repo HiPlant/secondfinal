@@ -1,27 +1,39 @@
 package com.example.myapplicationex1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.PopupMenu
 import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.myapplicationex1.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
-
+    var db: PlantsDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        db = PlantsDatabase.getInstance(this)
+        CoroutineScope(Dispatchers.IO).launch { // 코루틴 사용 비동기로 실행.
+            db!!.plantsDao().saveBookmark(PlantsEntity(1,"Round Cactus","성게 선인장",R.drawable.jaemin_round_cactus,R.drawable.jaemin_desc_round_cactus,R.drawable.jaemin_round_cactus_desc,R.drawable.jaemin_outdoor_category,false))
+            db!!.plantsDao().saveBookmark(PlantsEntity(2,"Fishbone Cactus","피쉬본 선인장",R.drawable.jaemin_fishbone_cactus,R.drawable.jaemin_desc_fishbone_cactus,R.drawable.jaemin_fishbone_cactus_desc,R.drawable.jaemin_office_category,false))
+            db!!.plantsDao().saveBookmark(PlantsEntity(3,"Christmas Cactus","게발 선인장",R.drawable.jaemin_christmas_cactus,R.drawable.jaemin_desc_christmas_cactus,R.drawable.jaemin_christmas_cactus_desc,R.drawable.jaemin_other_category,false))
+            db!!.plantsDao().saveBookmark(PlantsEntity(4,"Tulip","튤립",R.drawable.jaemin_tulip,R.drawable.jaemin_desc_tulip,R.drawable.jaemin_tulip_desc,R.drawable.jaemin_outdoor_category,false))
+            db!!.plantsDao().saveBookmark(PlantsEntity(5,"Siam Tulip","샴튤립",R.drawable.jaemin_siam_tulip,R.drawable.jaemin_desc_siam_tulip,R.drawable.jaemin_siam_tulip_desc,R.drawable.jaemin_outdoor_category,false))
+            val plantsData = db!!.plantsDao().getAll()
+            Log.i("plz", "${plantsData}")
+        }
 
 //        val navView: BottomNavigationView = binding.navView
 
@@ -78,4 +90,5 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
 }

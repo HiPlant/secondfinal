@@ -7,8 +7,69 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="First Page" />
+        android:layout_width="360dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:text="애칭을 정해보세요" />
+    <LinearLayout
+        android:layout_width="369dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="70dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="36dp"
+        android:paddingLeft="36dp"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/rename"/>
+        <EditText
+            android:id="@+id/NickName"
+            android:layout_width="254dp"
+            android:layout_height="49dp"
+            android:gravity="center"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="360dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="130dp"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:text="마지막 물을 준 날짜" />
+    <LinearLayout
+        android:layout_width="369dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="170dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="36dp"
+        android:paddingLeft="36dp"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/rename"/>
+        <EditText
+            android:id="@+id/Water"
+            android:layout_width="254dp"
+            android:layout_height="49dp"
+            android:gravity="center"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/FirstToSecond"
+        android:layout_width="294dp"
+        android:layout_height="56dp"
+        android:text="다음으로"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="bottom|center"/>
 
 </FrameLayout>

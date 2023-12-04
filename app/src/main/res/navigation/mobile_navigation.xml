@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_navigation_home_to_onBoardingFragment"
             app:destination="@id/onBoardingFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_registerPlantFragment"
+            app:destination="@id/registerPlantFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -43,5 +49,22 @@
         <action
             android:id="@+id/action_finishRegisterFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerPlantFragment"
+        android:name="com.example.myapplicationex1.ui.home.RegisterPlantFragment"
+        android:label="fragment_register_plant"
+        tools:layout="@layout/fragment_register_plant" >
+        <action
+            android:id="@+id/action_registerPlantFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.myapplicationex1.ui.home.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_registerPlantFragment"
+            app:destination="@id/registerPlantFragment" />
     </fragment>
 </navigation>
