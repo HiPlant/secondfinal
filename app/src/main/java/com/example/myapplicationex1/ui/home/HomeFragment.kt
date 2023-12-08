@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplicationex1.MainActivity
+import com.example.myapplicationex1.MyPlantItem
 import com.example.myapplicationex1.MyPlantsDatabase
 import com.example.myapplicationex1.PlantsDatabase
 import com.example.myapplicationex1.PlantsEntity
@@ -42,6 +43,8 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private var linearLayoutManager: RecyclerView.LayoutManager? = null
     private var todayPlantAdapter: RecyclerView.Adapter<TodayPlantAdapter.TodayPlantViewHolder>? = null
+    private var linearVerticalLayoutManager: RecyclerView.LayoutManager? = null
+    private var myPlantAdapter: RecyclerView.Adapter<MyPlantAdapter.MyPlantViewHolder>? = null
     var db: PlantsDatabase? = null
     var myPlants : MyPlantsDatabase? = null
     override fun onCreateView(
@@ -55,13 +58,18 @@ class HomeFragment : Fragment() {
 
 
         val todayPlantRecycler = _binding.root.findViewById<RecyclerView>(R.id.TodayPlantRecycler)
+        val myPlantRecycler = _binding.MyPlantRecycler
 
         val itemList = ArrayList<TodayPlantItem>()
+        val myItemList = ArrayList<MyPlantItem>()
         CoroutineScope(Dispatchers.IO).launch{
             for(info in db!!.plantsDao().getAll()){
                 itemList.add(TodayPlantItem(info.pID,info.pEngName,info.pKorName,info.pImg,info.pDesImg,info.desc,info.categoryImg,info.isLiked))
             }
             Log.i("db", "${myPlants!!.myPlantsDao().getAll()}")
+            for(item in myPlants!!.myPlantsDao().getAll()){
+                myItemList.add(MyPlantItem(item.pID,item.pEngName,item.pImg,item.pDescImg,item.desc,item.categoryImg,item.nickName,item.lastWater,item.sun,item.temperature))
+            }
         }
         //val item1 = TodayPlantItem(1,"Round Cactus","성게 선인장",R.drawable.jaemin_round_cactus,false)
         //itemList.add(item1)
@@ -70,6 +78,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_home_to_searchFragment)
         }
         todayPlantAdapter = TodayPlantAdapter(itemList)
+        myPlantAdapter = MyPlantAdapter(myItemList)
 
         (todayPlantAdapter as? TodayPlantAdapter)?.setImageClickListener(object: TodayPlantAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
@@ -106,9 +115,13 @@ class HomeFragment : Fragment() {
             }
         })
         linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        linearVerticalLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
 
         todayPlantRecycler?.adapter = todayPlantAdapter
         todayPlantRecycler?.layoutManager = linearLayoutManager
+        myPlantRecycler?.adapter = myPlantAdapter
+        myPlantRecycler?.layoutManager = linearVerticalLayoutManager
+
         Log.i("plz","${itemList}${todayPlantAdapter}${linearLayoutManager}")
 //        db = PlantsDatabase.getInstance(requireContext())
 //        db!!.parkDao().saveBookmark(PlantsEntity(1,"Round Cactus","성게 선인장","jaemin_round_cactus.png","outdoor_category.png","jaemin_round_cactus_desc.png",false))

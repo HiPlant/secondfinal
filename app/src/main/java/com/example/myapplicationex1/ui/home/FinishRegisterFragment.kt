@@ -20,10 +20,12 @@ import com.example.myapplicationex1.databinding.FragmentFinishRegisterBinding
 import com.example.myapplicationex1.databinding.FragmentThirdRegisterBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import me.ibrahimsn.lib.SmoothBottomBar
+import java.util.concurrent.atomic.AtomicReference
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,23 +60,42 @@ class FinishRegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         myPlants = MyPlantsDatabase.getInstance(requireContext())
         binding = FragmentFinishRegisterBinding.inflate(inflater, container, false)
-        setFragmentResultListener("BoardingToFinish"){key, bundle ->
-            val result = bundle.getString("BoardingToFinishItem")
-            val inputData = Json.decodeFromString<InputData>(result!!)
-            myNickName = binding.MyNickName
-            myNickName.text = "${inputData.nickName}이(가) 등록되었습니다!"
-            Log.i("vp","${inputData} 내 닉네임은 : ${myNickName}")
-        }
+        //setFragmentResultListener("BoardingToFinish"){key, bundle ->
+          //  val result = bundle.getString("BoardingToFinishItem")
+           // val inputData = Json.decodeFromString<InputData>(result!!)
+           // myNickName = binding.MyNickName
+           // myNickName.text = "${inputData.nickName}이(가) 등록되었습니다!"
+           // Log.i("vp","${inputData} 내 닉네임은 : ${myNickName}")
+           // CoroutineScope(Dispatchers.IO).launch {
+           //     myPlants!!.myPlantsDao().updateMyPlant(inputData.nickName,inputData.lastWater,inputData.sun,inputData.temperature,)
+           // }
+        //}
 
         setFragmentResultListener("ToFinish"){key, bundle ->
             val result = bundle.getString("ToFinishItem")
             val plantData = Json.decodeFromString<TodayPlantItem>(result!!)
             Log.i("vp", "${plantData}이녀석맞나?")
-            CoroutineScope(Dispatchers.Main).launch {
-
+            val wait = CoroutineScope(Dispatchers.IO).async {
+                myPlants!!.myPlantsDao().saveMyPlant(MyPlantsEntity(plantData.pEngName, plantData.pImg, plantData.pDescImg, plantData.pDesc, plantData.categoryImg))
+                myPlants!!.myPlantsDao().getROWCount()
             }
 
+            setFragmentResultListener("BoardingToFinish"){key, bundle ->
+                val result = bundle.getString("BoardingToFinishItem")
+                val inputData = Json.decodeFromString<InputData>(result!!)
+                myNickName = binding.MyNickName
+                myNickName.text = "${inputData.nickName}이(가) 등록되었습니다!"
+                Log.i("vp","${inputData} 내 닉네임은 : ${myNickName}")
+                CoroutineScope(Dispatchers.IO).launch {
+                    val row = wait.await()
+                    Log.i("FinishRegister","받은 row값 : ${row}")
+                    Log.i("FinishRegister","업데이트전 내식물 데베 : ${myPlants!!.myPlantsDao().getAll()}")
+                    myPlants!!.myPlantsDao().updateMyPlant(inputData.nickName,inputData.lastWater,inputData.sun,inputData.temperature,row)
+                    Log.i("FinishRegister","업데이트후 내식물 데베 : ${myPlants!!.myPlantsDao().getAll()}")
+                }
+            }
         }
+
         //val receivedValue = arguments?.getString("ThirdToFinish")
         //val inputData = Json.decodeFromString<InputData>(receivedValue!!)
         //Log.i("vp","${inputData} 내 닉네임은 : ${myNickName}")
@@ -87,7 +108,6 @@ class FinishRegisterFragment : Fragment() {
 
         return binding.root
     }
-
 
 
     companion object {
