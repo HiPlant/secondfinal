@@ -54,7 +54,14 @@ class ThirdRegisterFragment : Fragment() {
                 val info2 = Json.decodeFromString<InputData>(result!!)
                 val info3 = info2.copy(temperature = binding.Temp.text.toString())
                 setFragmentResult("ThirdToFinish", bundleOf("ThirdToFinishItem" to Json.encodeToString(info3)))
+                //val bundle = bundleOf("ThirdToFinishItem" to Json.encodeToString(info3))
+                //bundle.putString("ThirdToFinish", Json.encodeToString(info3))
+                //val receiveFragment = ThirdRegisterFragment()
+                //receiveFragment.arguments = bundle
+                //parentFragmentManager.beginTransaction().replace(R.id.)
+
                 Log.i("vp","${info2}${info3}")
+
             }
             findNavController().navigate(R.id.action_onBoardingFragment_to_finishRegisterFragment)
         }
@@ -66,6 +73,7 @@ class ThirdRegisterFragment : Fragment() {
                 vp?.setCurrentItem(current-1, true)
             }
         }
+
         return binding.root
     }
 

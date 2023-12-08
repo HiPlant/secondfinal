@@ -43,6 +43,12 @@ class OnBoardingFragment : Fragment() {
         val smoothBottomBar = requireActivity().findViewById<SmoothBottomBar>(R.id.navview)
         smoothBottomBar.visibility = View.GONE
 
+        childFragmentManager.setFragmentResultListener("ThirdToFinish",viewLifecycleOwner){key, bundle ->
+            val result = bundle.getString("ThirdToFinishItem")
+            Log.i("vp","$result 부모한테 보내졌나?")
+            setFragmentResult("BoardingToFinish", bundleOf("BoardingToFinishItem" to result))
+        }
+
         setFragmentResultListener("toOnBoarding") { key, bundle ->
             val result = bundle.getString("itemToOnBoarding")
             val plant = Json.decodeFromString<TodayPlantItem>(result!!)
@@ -50,6 +56,9 @@ class OnBoardingFragment : Fragment() {
             Log.i("onBoarding","$plant")
             setFragmentResult("ToFinish", bundleOf("ToFinishItem" to result))
         }
+
+
+
 
         initAdapter()
         return binding.root

@@ -8,11 +8,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.myapplicationex1.InputData
+import com.example.myapplicationex1.MyPlantsDatabase
+import com.example.myapplicationex1.MyPlantsEntity
 import com.example.myapplicationex1.R
 import com.example.myapplicationex1.TodayPlantItem
+import com.example.myapplicationex1.databinding.FragmentFinishRegisterBinding
+import com.example.myapplicationex1.databinding.FragmentThirdRegisterBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import me.ibrahimsn.lib.SmoothBottomBar
 
@@ -30,6 +39,9 @@ class FinishRegisterFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var myPlants :MyPlantsDatabase? = null
+    private lateinit var binding: FragmentFinishRegisterBinding
+    lateinit var myNickName: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,16 +56,28 @@ class FinishRegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        setFragmentResultListener("ThirdToFinish"){key, bundle ->
-            val result = bundle.getString("ThirdToFinishItem")
+        myPlants = MyPlantsDatabase.getInstance(requireContext())
+        binding = FragmentFinishRegisterBinding.inflate(inflater, container, false)
+        setFragmentResultListener("BoardingToFinish"){key, bundle ->
+            val result = bundle.getString("BoardingToFinishItem")
             val inputData = Json.decodeFromString<InputData>(result!!)
-            Log.i("vp","${inputData}")
+            myNickName = binding.MyNickName
+            myNickName.text = "${inputData.nickName}이(가) 등록되었습니다!"
+            Log.i("vp","${inputData} 내 닉네임은 : ${myNickName}")
         }
+
         setFragmentResultListener("ToFinish"){key, bundle ->
             val result = bundle.getString("ToFinishItem")
             val plantData = Json.decodeFromString<TodayPlantItem>(result!!)
-            Log.i("vp", "${plantData}")
+            Log.i("vp", "${plantData}이녀석맞나?")
+            CoroutineScope(Dispatchers.Main).launch {
+
+            }
+
         }
+        //val receivedValue = arguments?.getString("ThirdToFinish")
+        //val inputData = Json.decodeFromString<InputData>(receivedValue!!)
+        //Log.i("vp","${inputData} 내 닉네임은 : ${myNickName}")
         Handler(Looper.getMainLooper()).postDelayed({
 
             findNavController().navigate(R.id.action_finishRegisterFragment_to_navigation_home)
@@ -61,8 +85,10 @@ class FinishRegisterFragment : Fragment() {
             smoothBottomBar.visibility = View.VISIBLE// 실행 할 코드
         }, 5000)
 
-        return inflater.inflate(R.layout.fragment_finish_register, container, false)
+        return binding.root
     }
+
+
 
     companion object {
         /**

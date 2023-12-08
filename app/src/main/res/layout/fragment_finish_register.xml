@@ -21,12 +21,14 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="false"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/MyNickName"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/animationView"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="과육이가 등록되었습니다."/>
+        android:text="안녕"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

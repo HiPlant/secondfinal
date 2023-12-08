@@ -9,4 +9,5 @@ data class TodayPlantItem(val pID: Int,
                           val pImg: Int,
                           val pDescImg: Int,
                           val pDesc: Int,
+                          val categoryImg: Int,
                           val isLiked: Boolean)

@@ -4,8 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 @Entity(tableName = "table_my_plants")
 data class MyPlantsEntity(
-    @PrimaryKey
-    val pID: Int,
+
     val pEngName: String,
     val pImg: Int,
     val pDescImg: Int,
@@ -15,4 +14,7 @@ data class MyPlantsEntity(
     val lastWater: String = "",
     val sun: String = "",
     val temperature: String = ""
-)
+){
+    @PrimaryKey(autoGenerate = true)
+    var pID: Int = 0
+}

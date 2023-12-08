@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplicationex1.MainActivity
+import com.example.myapplicationex1.MyPlantsDatabase
 import com.example.myapplicationex1.PlantsDatabase
 import com.example.myapplicationex1.PlantsEntity
 import com.example.myapplicationex1.R
@@ -42,6 +43,7 @@ class HomeFragment : Fragment() {
     private var linearLayoutManager: RecyclerView.LayoutManager? = null
     private var todayPlantAdapter: RecyclerView.Adapter<TodayPlantAdapter.TodayPlantViewHolder>? = null
     var db: PlantsDatabase? = null
+    var myPlants : MyPlantsDatabase? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,14 +51,18 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         db = PlantsDatabase.getInstance(requireContext())
+        myPlants = MyPlantsDatabase.getInstance(requireContext())
 
 
         val todayPlantRecycler = _binding.root.findViewById<RecyclerView>(R.id.TodayPlantRecycler)
 
         val itemList = ArrayList<TodayPlantItem>()
-        CoroutineScope(Dispatchers.IO).launch{for(info in db!!.plantsDao().getAll()){
-            itemList.add(TodayPlantItem(info.pID,info.pEngName,info.pKorName,info.pImg,info.pDesImg,info.desc,info.isLiked))
-        }}
+        CoroutineScope(Dispatchers.IO).launch{
+            for(info in db!!.plantsDao().getAll()){
+                itemList.add(TodayPlantItem(info.pID,info.pEngName,info.pKorName,info.pImg,info.pDesImg,info.desc,info.categoryImg,info.isLiked))
+            }
+            Log.i("db", "${myPlants!!.myPlantsDao().getAll()}")
+        }
         //val item1 = TodayPlantItem(1,"Round Cactus","성게 선인장",R.drawable.jaemin_round_cactus,false)
         //itemList.add(item1)
         _binding.ToSearch.setOnClickListener {
