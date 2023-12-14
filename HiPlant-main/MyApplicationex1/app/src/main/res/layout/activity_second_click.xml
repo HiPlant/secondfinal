@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/firstclick"
+    android:contentDescription="ScrollView의 내용에 대한 설명">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- ImageView 요소들 -->
+
+
+        <ImageView
+            android:id="@+id/cover"
+            android:layout_width="393dp"
+            android:layout_height="362dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/cover"
+            app:layout_constraintBottom_toTopOf="@+id/grass4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.043" />
+
+        <ImageView
+            android:id="@+id/grass1"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/grass1"
+            app:layout_constraintBottom_toTopOf="@+id/section"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.565"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cover" />
+
+        <ImageView
+            android:id="@+id/grass2"
+            android:layout_width="56dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/grass2"
+            app:layout_constraintBottom_toTopOf="@+id/section"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.382"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cover" />
+
+        <ImageView
+            android:id="@+id/grass3"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/grass3"
+            app:layout_constraintBottom_toTopOf="@+id/section"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.199"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cover" />
+
+        <ImageView
+            android:id="@+id/grass4"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/grass4"
+            app:layout_constraintBottom_toTopOf="@+id/section"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.029"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cover"
+            app:layout_constraintVertical_bias="0.076" />
+
+        <ImageView
+            android:id="@+id/buy"
+            android:layout_width="117dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/buy"
+            app:layout_constraintBottom_toTopOf="@+id/section"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.942"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cover"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageView
+            android:id="@+id/section"
+            android:layout_width="395dp"
+            android:layout_height="280dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/section"
+            app:layout_constraintBottom_toTopOf="@+id/typesizelevel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buy" />
+
+        <ImageView
+            android:id="@+id/typesizelevel"
+            android:layout_width="229dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="148dp"
+            android:src="@drawable/typesizelevel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/section" />
+
+        <ImageView
+            android:id="@+id/plantcare"
+            android:layout_width="155dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="228dp"
+            android:src="@drawable/plantcare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typesizelevel" />
+
+        <ImageView
+            android:id="@+id/plantcondition"
+            android:layout_width="184dp"
+            android:layout_height="158dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="208dp"
+            android:src="@drawable/plantconditon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plantcare" />
+
+        <ImageView
+            android:id="@+id/recommend2"
+            android:layout_width="186dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="196dp"
+            android:src="@drawable/recommend2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plantcondition" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/back_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="52dp"
+            android:layout_marginLeft="12dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
