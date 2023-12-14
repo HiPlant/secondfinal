@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_home_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_myPlantDetailFragment"
+            app:destination="@id/myPlantDetailFragment" />
     </fragment>
 
     <fragment
@@ -66,5 +69,23 @@
         <action
             android:id="@+id/action_searchFragment_to_registerPlantFragment"
             app:destination="@id/registerPlantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPlantDetailFragment"
+        android:name="com.example.myapplicationex1.ui.home.MyPlantDetailFragment"
+        android:label="fragment_my_plant_detail"
+        tools:layout="@layout/fragment_my_plant_detail" >
+        <action
+            android:id="@+id/action_myPlantDetailFragment_to_wateringFragment"
+            app:destination="@id/wateringFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wateringFragment"
+        android:name="com.example.myapplicationex1.ui.home.WateringFragment"
+        android:label="fragment_watering"
+        tools:layout="@layout/fragment_watering" >
+        <action
+            android:id="@+id/action_wateringFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 </navigation>

@@ -1,18 +1,18 @@
 package com.example.myapplicationex1.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.myapplicationex1.MyPlantItem
 import com.example.myapplicationex1.R
-import com.example.myapplicationex1.databinding.FragmentFinishRegisterBinding
 import com.example.myapplicationex1.databinding.FragmentMyPlantDetailBinding
+import com.example.myapplicationex1.databinding.FragmentWateringBinding
 import kotlinx.serialization.json.Json
 import me.ibrahimsn.lib.SmoothBottomBar
 
@@ -23,14 +23,15 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MyPlantDetailFragment.newInstance] factory method to
+ * Use the [WateringFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MyPlantDetailFragment : Fragment() {
+class WateringFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var binding: FragmentMyPlantDetailBinding
+    lateinit var binding: FragmentWateringBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,27 +44,20 @@ class MyPlantDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val smoothBottomBar = requireActivity().findViewById<SmoothBottomBar>(R.id.navview)
-        binding = FragmentMyPlantDetailBinding.inflate(inflater, container, false)
-
-        setFragmentResultListener("myplantsElement"){key, bundle ->
-            val result = bundle.getString("myitem")
+        binding = FragmentWateringBinding.inflate(inflater, container, false)
+        setFragmentResultListener("towatering"){key,bundle ->
+            val result = bundle.getString("towateringitem")
             val myPlant = Json.decodeFromString<MyPlantItem>(result!!)
-            binding.MyNameOfPlant.text = myPlant.nickName
-            binding.MyPlantDesc.setImageResource(myPlant.desc)
-            binding.MyDescPlantImg.setImageResource(myPlant.pDescImg)
-            setFragmentResult("towatering",bundleOf("towateringitem" to result))
+            binding.MyWateringNickName.text = "${myPlant.nickName}(이)가 쑥쑥 자라는중~"
         }
-
-        binding.WateringBtn.setOnClickListener{
-            findNavController().navigate(R.id.action_myPlantDetailFragment_to_wateringFragment)
-        }
-
-        smoothBottomBar.visibility = View.GONE
         // Inflate the layout for this fragment
+        Handler(Looper.getMainLooper()).postDelayed({
+            val smoothBottomBar = requireActivity().findViewById<SmoothBottomBar>(R.id.navview)
+            smoothBottomBar.visibility = View.VISIBLE// 실행 할 코드
+            findNavController().navigate(R.id.action_wateringFragment_to_navigation_home)
+        }, 5000)
         return binding.root
     }
-
 
     companion object {
         /**
@@ -72,12 +66,12 @@ class MyPlantDetailFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailFragment.
+         * @return A new instance of fragment WateringFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MyPlantDetailFragment().apply {
+            WateringFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

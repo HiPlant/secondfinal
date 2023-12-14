@@ -6,9 +6,46 @@
     tools:context=".ui.home.MyPlantDetailFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/MyDescPlantImg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="410dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/jaemin_desc_round_cactus"/>
+    <TextView
+        android:id="@+id/MyNameOfPlant"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_gravity = "top|center"
+        android:layout_marginTop="43dp"
+        android:text="식물이름"/>
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:clickable="true"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="315dp"
+        android:layout_marginBottom="106dp"
+        android:fillViewport="true">
+
+        <ImageView
+            android:id="@+id/MyPlantDesc"
+            android:layout_width="match_parent"
+            android:layout_height="919dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/jaemin_round_cactus_desc" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/WateringBtn"
+        android:layout_width="327dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="34dp"
+        android:text="물주기"
+        android:layout_gravity="center|bottom"/>
 </FrameLayout>

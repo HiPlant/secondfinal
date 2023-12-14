@@ -87,6 +87,13 @@ class HomeFragment : Fragment() {
                     findNavController().navigate(R.id.action_navigation_home_to_registerPlantFragment)
             }
         })
+        (myPlantAdapter as? MyPlantAdapter)?.setImageClickListener(object: MyPlantAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                // 상세페이지로 가는 코드
+                setFragmentResult("myplantsElement", bundleOf("myitem" to Json.encodeToString(myItemList[position])))
+                findNavController().navigate(R.id.action_navigation_home_to_myPlantDetailFragment)
+            }
+        })
         (todayPlantAdapter as? TodayPlantAdapter)?.setHeartClickListener(object: TodayPlantAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
                 // 찜하기 코드

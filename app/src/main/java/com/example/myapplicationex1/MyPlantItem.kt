@@ -1,5 +1,8 @@
 package com.example.myapplicationex1
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class MyPlantItem(val pID: Int,
                        val pEngName: String,
                        val pImg: Int,
