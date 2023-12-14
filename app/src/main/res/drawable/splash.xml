@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/jaemin_splash" /> <!-- 추가하고 싶은 이미지 설정 -->
-</layer-list>
