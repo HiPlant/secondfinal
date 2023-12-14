@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="144dp"
+    android:layout_height="202dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp"
+    >
+
+    <ImageView
+        android:id="@+id/ToDescBtnSearch"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/jaemin_round_cactus"
+        android:focusable="true"/>
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="6dp"
+        android:layout_gravity="bottom|center"
+        android:orientation="horizontal"
+        android:background="#FFFFFF">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/EngPlantNameSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="12dp"
+                android:text="보이니?"
+                android:textSize="8sp"/>
+            <TextView
+                android:id="@+id/KorPlantNameSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="9dp"
+                android:text="보일까?"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/LikeButtonSearch"
+            android:layout_width="12dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+</FrameLayout>
